@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "serviio.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "serviio.name" $ }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "serviio.name" $ }}
+    spec:
+      hostNetwork: true
+      containers:
+      - name: serviio
+        image: soerentsch/serviio:latest
+        ports:
+        - containerPort: 1900
+          protocol: UDP
+        - containerPort: 8895
+        - containerPort: 23423
+        # Mount the NFS volume in the container
+        volumeMounts:
+        - name: video
+          mountPath: /media/serviio
+#        - name: audio
+#          mountPath: /mnt
+#        - mountPath: /opt/serviio/config
+#          subPath: config
+#          name: {{ include "serviio.name" . }}
+        - mountPath: /opt/serviio/library
+          subPath: library
+          name: {{ include "serviio.name" . }}
+      # Add the NFS volume to the Pod
+      volumes:
+      - name: video
+        # Set the NFS server and path to the share
+        nfs:
+          server: 192.168.1.106
+          path: /mnt/storage/video
+#      - name: audio
+#        # Set the NFS server and path to the share
+#        nfs:
+#          server: 192.168.1.106
+#          path: /mnt/storage/audio
+      - name: serviio
+        persistentVolumeClaim:
+          claimName: {{ include "serviio.name" . }}
