@@ -23,8 +23,10 @@ spec:
         - containerPort: 23423
         # Mount the NFS volume in the container
         volumeMounts:
-        - name: video
-          mountPath: /media/serviio
+{{- range $key, $val := .Values.content }}
+        - name: {{ $key }}
+          mountPath: {{ $val.mount }}
+{{- end }}
 #        - name: audio
 #          mountPath: /mnt
 #        - mountPath: /opt/serviio/config

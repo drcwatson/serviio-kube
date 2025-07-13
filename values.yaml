@@ -9,9 +9,9 @@ storage:
   size: 8Gi
   storageClassName: nfs-client
 
-Content:
+content:
   video:
-    mount: /mnt/serviio/media
+    mount: /media/serviio
     # Set the NFS server and path to the share
     nfs:
       server: 192.168.1.106
