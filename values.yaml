@@ -1,5 +1,10 @@
 # Default values for serviio.
-image: soerentsch/serviio:latest
+image:
+  repository: ghcr.io/drcwatson/serviio
+  tag: "latest"
+  pullPolicy: Always
+  # Optionally override the GitHub username (default: drcwatson)
+  githubUser: "drcwatson"
 
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1

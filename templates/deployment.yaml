@@ -15,7 +15,8 @@ spec:
       hostNetwork: true
       containers:
       - name: serviio
-        image: {{ .Values.image }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
         ports:
         - containerPort: 1900
           protocol: UDP
