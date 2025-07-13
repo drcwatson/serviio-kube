@@ -1,11 +1,13 @@
+{{ if .Values.storage.enabled }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ include "serviio.name" . }}
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ (.Values.storage.node).type | default "ReadWriteMany" }}
   resources:
     requests:
-      storage: 8Gi
-  storageClassName: nfs-client
+      storage: {{ .Values.storage.size | default "8Gi" }}
+  storageClassName: {{ .Values.storage.storageClassName }}
+{{- end }}

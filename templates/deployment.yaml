@@ -15,7 +15,7 @@ spec:
       hostNetwork: true
       containers:
       - name: serviio
-        image: soerentsch/serviio:latest
+        image: {{ .Values.image }}
         ports:
         - containerPort: 1900
           protocol: UDP
