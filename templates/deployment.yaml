@@ -27,11 +27,6 @@ spec:
         - name: {{ $key }}
           mountPath: {{ $val.mount }}
 {{- end }}
-#        - name: audio
-#          mountPath: /mnt
-#        - mountPath: /opt/serviio/config
-#          subPath: config
-#          name: {{ include "serviio.name" . }}
         - mountPath: /opt/serviio/library
           subPath: library
           name: {{ include "serviio.name" . }}
@@ -46,11 +41,6 @@ spec:
           path: {{ $val.nfs.path }}
       {{- end }}
 {{- end }}
-#      - name: audio
-#        # Set the NFS server and path to the share
-#        nfs:
-#          server: 192.168.1.106
-#          path: /mnt/storage/audio
       - name: serviio
         persistentVolumeClaim:
           claimName: {{ include "serviio.name" . }}
