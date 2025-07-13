@@ -37,11 +37,15 @@ spec:
           name: {{ include "serviio.name" . }}
       # Add the NFS volume to the Pod
       volumes:
-      - name: video
+{{- range $key, $val := .Values.content }}
+      - name: {{ $key }}
+      {{- if $val.nfs }}
         # Set the NFS server and path to the share
         nfs:
-          server: 192.168.1.106
-          path: /mnt/storage/video
+          server: {{ $val.nfs.server }}
+          path: {{ $val.nfs.path }}
+      {{- end }}
+{{- end }}
 #      - name: audio
 #        # Set the NFS server and path to the share
 #        nfs:
