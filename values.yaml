@@ -1,3 +1,35 @@
 # Default values for serviio.
+image: soerentsch/serviio:latest
+
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
+
+storage:
+  enabled: true
+  size: 8Gi
+  storageClassName: nfs-client
+
+Content:
+  video:
+    mount: /mnt/serviio/media
+    # Set the NFS server and path to the share
+    nfs:
+      server: 192.168.1.106
+      path: /mnt/storage/video
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: "kubernetes.io/arch"
+          operator: In
+          values: ["arm64"]
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 1
+      preference:
+        matchExpressions:
+        - key: model
+          operator: In
+          values:
+          - RPI5

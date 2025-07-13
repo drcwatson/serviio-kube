@@ -48,3 +48,7 @@ spec:
       - name: serviio
         persistentVolumeClaim:
           claimName: {{ include "serviio.name" . }}
+      affinity:
+        {{- if .Values.affinity }}
+{{ toYaml .Values.affinity | trim | indent 8 }}
+        {{- end }}
