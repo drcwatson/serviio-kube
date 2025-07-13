@@ -58,14 +58,13 @@ To deploy this chart using images from GitHub Container Registry, you need to cr
 
 #### 2. Create the Kubernetes Secret
 
-Replace `<username>` and `<PAT>` with your GitHub username and the token you created:
-
 ```sh
+read -s PAT # PASTE the copied token in response to this
 kubectl create secret docker-registry ghcr \
   --docker-server=ghcr.io \
-  --docker-username=<username> \
-  --docker-password=<PAT> \
-  --docker-email=<your-email>
+  --docker-username="$(git config get user.name)" \
+  --docker-password=$PAT \
+  --docker-email=$(git config get user.email)
 ```
 ### Deploy
 
