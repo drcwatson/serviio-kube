@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "serviio.fullname" . }}
+  name: {{ include "serviio.fullname" . }}-dlna
   annotations:
     metallb.io/allow-shared-ip: {{ include "serviio.name" . }}
 spec:
@@ -17,7 +17,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "serviio.fullname" . }}-lb
+  name: {{ include "serviio.fullname" . }}
 spec:
   type: LoadBalancer
   selector:
