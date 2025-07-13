@@ -12,6 +12,10 @@ spec:
       labels:
         app: {{ template "serviio.name" $ }}
     spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      {{- end }}
       hostNetwork: true
       containers:
       - name: serviio

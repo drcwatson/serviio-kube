@@ -6,6 +6,10 @@ image:
   # Optionally override the GitHub username (default: drcwatson)
   githubUser: "drcwatson"
 
+# Image pull secret for private registries (e.g., GitHub Container Registry)
+imagePullSecrets:
+  - name: ghcr
+
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
